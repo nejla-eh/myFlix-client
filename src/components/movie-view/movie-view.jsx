@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "react-bootstrap/Button";
 
 export class MovieView extends React.Component {
   keypressCallback(event) {
@@ -37,13 +38,9 @@ export class MovieView extends React.Component {
           <span className="label">Director: </span>
           <span className="value">{movie.Director}</span>
         </div> */}
-        <button
-          onClick={() => {
-            onBackClick(null);
-          }}
-        >
+        <Button onClick={() => onBackClick(null)} variant="link">
           Back
-        </button>
+        </Button>
       </div>
     );
   }
