@@ -19,11 +19,15 @@
   "homepage": "https://github.com/nejla-eh/myFlix-client#readme",
   "devDependencies": {
     "@parcel/transformer-sass": "^2.7.0",
+    "buffer": "^6.0.3",
     "parcel": "^2.7.0",
     "process": "^0.11.10"
   },
   "dependencies": {
+    "axios": "^0.27.2",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0"
   }
 }

@@ -1,45 +1,35 @@
 import React from "react";
+import axios from "axios";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
+import { LoginView } from "../login-view/login-view";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
+import { RegistrationView } from "../registration-view/registration-view";
 
 export class MainView extends React.Component {
   constructor() {
     super();
     this.state = {
-      movies: [
-        {
-          _id: 1,
-          Title: "Inception",
-          Description:
-            "A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O., but his tragic past may doom the project and his team to disaster.",
-          ImagePath:
-            "https://m.media-amazon.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1_FMjpg_UX1000_.jpg",
-          Genre: "Sci-Fi",
-          Director: "Christopher Nolan",
-        },
-        {
-          _id: 2,
-          Title: "The Shawshank Redemption",
-          Description:
-            "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
-          ImagePath:
-            "https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg",
-          Genre: "Drama",
-          Director: "Frank Darabont",
-        },
-        {
-          _id: 3,
-          Title: "Gladiator",
-          Description:
-            "A former Roman General sets out to exact vengeance against the corrupt emperor who murdered his family and sent him into slavery.",
-          ImagePath:
-            "https://upload.wikimedia.org/wikipedia/en/f/fb/Gladiator_%282000_film_poster%29.png",
-          Genre: "Adventure",
-          Director: "Ridley Scott",
-        },
-      ],
+      movies: [],
       selectedMovie: null,
+      user: null,
+      isRegistering: false,
     };
+  }
+
+  componentDidMount() {
+    axios
+      .get("https://my-flix-nejla.herokuapp.com/movies")
+      .then((response) => {
+        this.setState({
+          movies: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   setSelectedMovie(newSelectedMovie) {
@@ -48,33 +38,79 @@ export class MainView extends React.Component {
     });
   }
 
-  render() {
-    const { movies, selectedMovie } = this.state;
+  setIsRegistering(status) {
+    this.setState({
+      isRegistering: status,
+    });
+  }
 
-    if (movies.length === 0)
-      return <div className="main-view">The list is empty!</div>;
+  onLoggedIn(user) {
+    this.setState({
+      user,
+    });
+  }
+
+  logOut() {
+    this.setState({
+      selectedMovie: null,
+      user: null,
+    });
+  }
+
+  render() {
+    const { movies, selectedMovie, user } = this.state;
+
+    if (!user)
+      if (!this.state.isRegistering) {
+        return (
+          <LoginView
+            onLoggedIn={(user) => this.onLoggedIn(user)}
+            onRegisterClick={(status) => this.setIsRegistering(status)}
+          />
+        );
+      } else {
+        return (
+          <RegistrationView
+            onRegisterClick={(status) => this.setIsRegistering(status)}
+          />
+        );
+      }
+
+    if (movies.length === 0) return <div className="main-view" />;
 
     return (
-      <div className="main-view">
+      <Row className="main-view justify-content-md-center mt-5">
         {selectedMovie ? (
-          <MovieView
-            movie={selectedMovie}
-            onBackClick={() => {
-              this.setSelectedMovie();
-            }}
-          />
-        ) : (
-          movies.map((movie) => (
-            <MovieCard
-              key={movie._id}
-              movie={movie}
-              onMovieClick={(movie) => {
-                this.setSelectedMovie(movie);
+          <Col md={8}>
+            <MovieView
+              movie={selectedMovie}
+              onBackClick={() => {
+                this.setSelectedMovie();
               }}
             />
+          </Col>
+        ) : (
+          movies.map((movie) => (
+            <Col md={4} sm={6} className="mb-5">
+              <MovieCard
+                key={movie._id}
+                movie={movie}
+                onMovieClick={(newSelectedMovie) => {
+                  this.setSelectedMovie(newSelectedMovie);
+                }}
+              />
+            </Col>
           ))
         )}
-      </div>
+        <a
+          href="#"
+          onClick={() => {
+            this.logOut();
+          }}
+        >
+          Log Out
+        </a>
+      </Row>
     );
   }
 }
