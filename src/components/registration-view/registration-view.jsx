@@ -12,7 +12,6 @@ import {
 import { Link, useHistory } from "react-router-dom";
 
 import axios from "axios";
-import { indexOf } from "lodash";
 
 export function RegistrationView({ onSucessfulRegistration }) {
   const [username, setUsername] = useState("");
