@@ -9,19 +9,65 @@ import {
   Col,
   Row,
 } from "react-bootstrap";
+import { Link, useHistory } from "react-router-dom";
 
-//import "./registration-view.scss";
 import axios from "axios";
+import { indexOf } from "lodash";
 
-export function RegistrationView(props) {
+export function RegistrationView({ onSucessfulRegistration }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
+  const [usernameErr, setUsernameErr] = useState("");
+  const [passwordErr, setPasswordErr] = useState("");
+  const [emailErr, setEmailErr] = useState("");
+
+  const validate = () => {
+    let isReq = true;
+    if (!username) {
+      setUsernameErr("Username Required");
+      isReq = false;
+    } else if (username.length < 2) {
+      setUsernameErr("Username must have at least 2 characters");
+      isReq = false;
+    }
+    if (!password) {
+      setPasswordErr("Password Required");
+      isReq = false;
+    } else if (password.length < 6) {
+      setPasswordErr("Password must have at least 6 characters");
+      isReq = false;
+    }
+    if (!email) {
+      setEmailErr("Email Required");
+      isReq = false;
+    } else if (email.indexOf("@") === -1) {
+      setEmailErr("Please enter correct email address");
+      isReq = false;
+    }
+    return isReq;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password, email, birthday);
+    const isReq = validate();
+    if (isReq) {
+      axios
+        .post("https://my-flix-nejla.herokuapp.com/users", {
+          Username: username,
+          Password: password,
+          Email: email,
+          Birthday: birthday,
+        })
+        .then((response) => {
+          onSucessfulRegistration();
+        })
+        .catch((response) => {
+          console.error(response);
+          alert("unable to register");
+        });
+    }
   };
 
   return (
@@ -44,6 +90,7 @@ export function RegistrationView(props) {
                       required
                       placeholder="Enter a username"
                     />
+                    {usernameErr && <p>{usernameErr}</p>}
                   </Form.Group>
                   <Form.Group>
                     <Form.Label>Password:</Form.Label>
@@ -55,6 +102,7 @@ export function RegistrationView(props) {
                       minLength="8"
                       placeholder="Your password must be 8 or more characters"
                     />
+                    {passwordErr && <p>{passwordErr}</p>}
                   </Form.Group>
                   <Form.Group>
                     <Form.Label>Email:</Form.Label>
@@ -65,6 +113,7 @@ export function RegistrationView(props) {
                       required
                       placeholder="Enter your email address"
                     />
+                    {emailErr && <p>{emailErr}</p>}
                   </Form.Group>
                   <Form.Group>
                     <Form.Label>Birthday:</Form.Label>
@@ -78,15 +127,9 @@ export function RegistrationView(props) {
                     <Button type="button" onClick={handleSubmit}>
                       Register
                     </Button>
-                    <a
-                      className="ml-2"
-                      href="#"
-                      onClick={() => {
-                        props.onRegisterClick(false);
-                      }}
-                    >
+                    <Link to="/" className="ml-2">
                       Already registered?
-                    </a>
+                    </Link>
                   </Form.Group>
                 </Form>
               </Card.Body>

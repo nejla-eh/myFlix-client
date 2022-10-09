@@ -1,47 +1,99 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
 import Button from "react-bootstrap/Button";
+import { Button, Row } from "react-bootstrap";
 
-export class MovieView extends React.Component {
-  keypressCallback(event) {
-    console.log(event.key);
-  }
+import { Link } from "react-router-dom";
 
-  componentDidMount() {
-    document.addEventListener("keypress", this.keypressCallback);
-  }
+export function MovieView({ movie, onBackClick }) {
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
+  const currentUser = localStorage.getItem("user");
+  const token = localStorage.getItem("token");
 
-  componentWillUnmount() {
-    document.removeEventListener("keypress", this.keypressCallback);
-  }
+  const getFavoriteMoviesArray = (username) => {
+    axios
+      .get(`${process.env.MY_FLIX_API}/users/${username}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        setFavoriteMovies(response.data.FavoriteMovies);
+      })
+      .catch((error) => console.error(error));
+  };
 
-  render() {
-    const { movie, onBackClick } = this.props;
+  const addMovieToFavorites = (username, movieId) => {
+    axios
+      .post(`${process.env.MY_FLIX_API}/users/${username}/movies/${movieId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        setFavoriteMovies(response.data.FavoriteMovies);
+      })
+      .catch((error) => console.error(error));
+  };
 
-    return (
-      <div className="movie-view">
-        <div className="movie-poster">
-          <img width="150" src={movie.ImagePath} />
-        </div>
-        <div className="movie-title">
-          <span className="label">Title: </span>
-          <span className="value">{movie.Title}</span>
-        </div>
-        <div className="movie-description">
-          <span className="label">Description: </span>
-          <span className="value">{movie.Description}</span>
-        </div>
-        {/* <div className="movie-genre">
-          <span className="label">Genre: </span>
-          <span className="value">{movie.Genre}</span>
-        </div>
-        <div className="movie-director">
-          <span className="label">Director: </span>
-          <span className="value">{movie.Director}</span>
-        </div> */}
-        <Button onClick={() => onBackClick(null)} variant="link">
-          Back
-        </Button>
+  const removeMovieFromFavorites = (username, movieId) => {
+    axios
+      .delete(
+        `${process.env.MY_FLIX_API}/users/${username}/movies/${movieId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      .then((response) => {
+        setFavoriteMovies(response.data.FavoriteMovies);
+      })
+      .catch((error) => console.error(error));
+  };
+
+  useEffect(() => {
+    getFavoriteMoviesArray(currentUser);
+  }, []);
+
+  return (
+    <div className="movie-view">
+      <Button className="pl-0" onClick={() => onBackClick()} variant="link">
+        Back
+      </Button>
+      <div className="movie-poster pb-3">
+        <img width="150" src={movie.ImagePath} />
       </div>
-    );
-  }
+      <div className="movie-title">
+        <span className="label">Title: </span>
+        <span className="value">{movie.Title}</span>
+      </div>
+      <div className="movie-description">
+        <span className="label">Description: </span>
+        <span className="value">{movie.Description}</span>
+      </div>
+      <Row className="mx-0">
+        <Link to={`/directors/${movie.Director.Name}`}>
+          <Button className="pl-0" variant="link">
+            Director
+          </Button>
+        </Link>
+        <Link to={`/genres/${movie.Genre.Name}`}>
+          <Button variant="link">Genre</Button>
+        </Link>
+      </Row>
+      <Row className="mx-0">
+        {favoriteMovies.includes(movie._id) ? (
+          <Button
+            variant="danger"
+            onClick={() => removeMovieFromFavorites(currentUser, movie._id)}
+          >
+            Remove from favorites
+          </Button>
+        ) : (
+          <Button
+            variant="success"
+            onClick={() => addMovieToFavorites(currentUser, movie._id)}
+          >
+            Add to favorites
+          </Button>
+        )}
+      </Row>
+    </div>
+  );
 }
