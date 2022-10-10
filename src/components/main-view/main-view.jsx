@@ -76,18 +76,18 @@ export default class MainView extends React.Component {
       });
   }
 
-  updateUser(newUserInfo) {
+  onUpdatedUser(newUserInfo) {
     const { userName, newPassword, email } = newUserInfo;
     axios
       .put(
-        `${process.env.MY_FLIX_API}/users/${currentUser}`,
+        `${process.env.MY_FLIX_API}/users/${localStorage.getItem("user")}`,
         {
           Username: userName,
           Password: newPassword,
           Email: email,
         },
         {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       )
       .then((response) => {
@@ -231,7 +231,7 @@ export default class MainView extends React.Component {
                     onBackClick={() => history.goBack()}
                     onDeletedUser={() => this.onLoggedOut()}
                     onUpdatedUser={(newUserInfo) =>
-                      this.onDeletedUser(newUserInfo)
+                      this.onUpdatedUser(newUserInfo)
                     }
                   />
                 </Col>
