@@ -1,0 +1,73 @@
+.movie-view {
+  color: #b3b0b3;
+}
+
+.movie-view .backLink, .movie-view .directorLink, .movie-view .genreLink {
+  color: #468ead;
+}
+
+.login-form {
+  color: #b3b0b3;
+}
+
+.login-form .registerLink {
+  color: #468ead;
+}
+
+.registration-form {
+  color: #b3b0b3;
+}
+
+.registration-form .loginLink {
+  color: #468ead;
+}
+
+.profile-view {
+  color: #b3b0b3;
+}
+
+.profile-view .backBtn {
+  color: #468ead;
+}
+
+.director-view {
+  color: #b3b0b3;
+}
+
+.director-view .backBtn {
+  color: #468ead;
+}
+
+.genre-view {
+  color: #b3b0b3;
+}
+
+.genre-view .backBtn {
+  color: #468ead;
+}
+
+.navBar a.navbar-brand, .navBar .navbar-nav a.nav-link {
+  color: #b3b0b3;
+}
+
+.movieCard.card {
+  border-color: #5f5763;
+}
+
+.movieCard .openBtn {
+  color: #468ead;
+}
+
+
+
+body {
+  color: #b3b0b3;
+  background-color: #312b34 !important;
+}
+
+.card-body {
+  color: #b3b0b3;
+  background-color: #252127;
+}
+
+/*# sourceMappingURL=index.5f1df611.css.map */

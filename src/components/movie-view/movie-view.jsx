@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { connect } from "react-redux";
 
 import Button from "react-bootstrap/Button";
 import { Button, Row } from "react-bootstrap";
+import "./movie-view.scss";
 
 import { Link } from "react-router-dom";
 
@@ -53,7 +55,11 @@ export function MovieView({ movie, onBackClick }) {
 
   return (
     <div className="movie-view">
-      <Button className="pl-0" onClick={() => onBackClick()} variant="link">
+      <Button
+        className="pl-0 backLink"
+        onClick={() => onBackClick()}
+        variant="link"
+      >
         Back
       </Button>
       <div className="movie-poster pb-3">
@@ -69,25 +75,27 @@ export function MovieView({ movie, onBackClick }) {
       </div>
       <Row className="mx-0">
         <Link to={`/directors/${movie.Director.Name}`}>
-          <Button className="pl-0" variant="link">
+          <Button className="pl-0 directorLink" variant="link">
             Director
           </Button>
         </Link>
         <Link to={`/genres/${movie.Genre.Name}`}>
-          <Button variant="link">Genre</Button>
+          <Button className="genreLink" variant="link">
+            Genre
+          </Button>
         </Link>
       </Row>
       <Row className="mx-0">
         {favoriteMovies.includes(movie._id) ? (
           <Button
-            variant="danger"
+            variant="warning"
             onClick={() => removeMovieFromFavorites(currentUser, movie._id)}
           >
             Remove from favorites
           </Button>
         ) : (
           <Button
-            variant="success"
+            variant="info"
             onClick={() => addMovieToFavorites(currentUser, movie._id)}
           >
             Add to favorites

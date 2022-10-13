@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import { Col, Row, Figure, Button, Card } from "react-bootstrap";
 import "./profile-view.scss";
 
@@ -22,7 +23,7 @@ function FavoriteMovies({ favoriteMovieList, onRemoveFavorite }) {
                     <Figure.Caption>{Title}</Figure.Caption>
                   </Link>
                 </Figure>
-                <Button variant="danger" onClick={() => onRemoveFavorite(_id)}>
+                <Button variant="warning" onClick={() => onRemoveFavorite(_id)}>
                   Remove
                 </Button>
               </Col>

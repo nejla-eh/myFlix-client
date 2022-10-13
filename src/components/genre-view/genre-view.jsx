@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 import { Button, Col, Container, Row } from "react-bootstrap";
 
@@ -10,9 +11,9 @@ export class GenreView extends React.Component {
     const { genre, onBackClick } = this.props;
 
     return (
-      <Container>
+      <Container className="genre-view">
         <Button
-          className="d-block px-0 mb-3"
+          className="d-block px-0 mb-3 backBtn"
           onClick={() => {
             onBackClick(null);
           }}

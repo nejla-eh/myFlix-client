@@ -10,8 +10,10 @@ import {
   Row,
 } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
+import "./registration-view.scss";
 
 import axios from "axios";
+import { connect } from "react-redux";
 
 export function RegistrationView({ onSucessfulRegistration }) {
   const [username, setUsername] = useState("");
@@ -79,7 +81,7 @@ export function RegistrationView({ onSucessfulRegistration }) {
                 <Card.Title style={{ textAlign: "center", fontSize: "2rem" }}>
                   Register
                 </Card.Title>
-                <Form>
+                <Form className="registration-form">
                   <Form.Group>
                     <Form.Label>Username:</Form.Label>
                     <Form.Control
@@ -123,10 +125,10 @@ export function RegistrationView({ onSucessfulRegistration }) {
                     />
                   </Form.Group>
                   <Form.Group className="mt-2">
-                    <Button type="button" onClick={handleSubmit}>
+                    <Button variant="info" type="button" onClick={handleSubmit}>
                       Register
                     </Button>
-                    <Link to="/" className="ml-2">
+                    <Link to="/" className="ml-2 loginLink">
                       Already registered?
                     </Link>
                   </Form.Group>

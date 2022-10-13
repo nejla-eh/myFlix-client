@@ -4,8 +4,32 @@
 
 
 
-.my-flix {
-  color: #4682b4;
+.navBar a.navbar-brand, .navBar .navbar-nav a.nav-link {
+  color: #b3b0b3;
+}
+
+.movieCard.card {
+  border-color: #5f5763;
+}
+
+.movieCard .openBtn {
+  color: #468ead;
+}
+
+
+
+body {
+  color: #b3b0b3;
+  background-color: #312b34 !important;
+}
+
+.card-body {
+  color: #b3b0b3;
+  background-color: #252127;
+}
+
+.btn, btn-link, .nav {
+  color: #b3b0b3;
 }
 
 /*# sourceMappingURL=index.83325510.css.map */

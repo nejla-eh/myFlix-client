@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import {
   Form,
   Button,
@@ -8,6 +9,8 @@ import {
   Col,
   Row,
 } from "react-bootstrap";
+
+import "./profile-view.scss";
 
 function UpdateUser({ handleSubmit, handleUpdate, user }) {
   const [userName, setUserName] = useState(user.Username);
@@ -52,7 +55,7 @@ function UpdateUser({ handleSubmit, handleUpdate, user }) {
         </Form.Group>
         <Button
           className="mt-2"
-          variant="primary"
+          variant="info"
           type="submit"
           onClick={(e) => {
             e.preventDefault();
