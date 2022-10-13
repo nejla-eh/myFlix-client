@@ -1,0 +1,7 @@
+@import "../../styles/variables";
+
+.navBar {
+    a.navbar-brand, .navbar-nav a.nav-link {
+        color: $color;
+    }
+}

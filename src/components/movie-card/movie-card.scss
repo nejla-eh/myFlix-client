@@ -1,0 +1,10 @@
+@import "../../styles/variables";
+
+.movieCard {
+    &.card {
+        border-color: $borderColorCard;
+    }    
+    .openBtn {
+        color: $linkColor;
+    }
+}

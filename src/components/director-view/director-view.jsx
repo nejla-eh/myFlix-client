@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 import { Button, Col, Container, Row, Col } from "react-bootstrap";
 
@@ -12,7 +13,7 @@ export class DirectorView extends React.Component {
     return (
       <Container className="director-view">
         <Button
-          className="d-block px-0 mb-3"
+          className="d-block px-0 mb-3 backBtn"
           onClick={() => {
             onBackClick(null);
           }}

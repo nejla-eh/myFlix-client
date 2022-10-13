@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { connect } from "react-redux";
 
 import { Button, Card, Container, Row, Col } from "react-bootstrap";
 
@@ -60,11 +61,11 @@ export function ProfileView({
   };
 
   return (
-    <Container>
+    <Container className="profile-view">
       {user && (
         <>
           <Button
-            className="mb-2 px-0"
+            className="mb-2 px-0 backBtn"
             onClick={() => {
               onBackClick(null);
             }}

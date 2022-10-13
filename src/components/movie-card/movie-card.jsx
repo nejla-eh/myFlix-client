@@ -2,20 +2,22 @@ import React from "react";
 import PropTypes from "prop-types";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import { connect } from "react-redux";
 
 import { Link } from "react-router-dom";
+import "./movie-card.scss";
 
 export default class MovieCard extends React.Component {
   render() {
     const { movie } = this.props;
     return (
-      <Card>
+      <Card className="movieCard">
         <Card.Img variant="top" src={movie.ImagePath} />
         <Card.Body>
           <Card.Title>{movie.Title}</Card.Title>
           <Card.Text>{movie.Description}</Card.Text>
           <Link to={`/movies/${movie._id}`}>
-            <Button className="px-0" variant="link">
+            <Button className="px-0 openBtn" variant="link">
               Open
             </Button>
           </Link>

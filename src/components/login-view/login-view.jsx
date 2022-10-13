@@ -11,6 +11,9 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { connect } from "react-redux";
+
+import "./login-view.scss";
 
 export default function LoginView(props) {
   const [username, setUsername] = useState("");
@@ -66,7 +69,7 @@ export default function LoginView(props) {
                 <Card.Title style={{ textAlign: "center", fontSize: "2rem" }}>
                   Login
                 </Card.Title>
-                <Form>
+                <Form className="login-form">
                   <Form.Group controlId="formUsername">
                     <Form.Label>Username:</Form.Label>
                     <Form.Control
@@ -91,14 +94,10 @@ export default function LoginView(props) {
                     {passwordErr && <p>{passwordErr}</p>}
                   </Form.Group>
                   <Form.Group className="mt-2">
-                    <Button
-                      variant="primary"
-                      type="submit"
-                      onClick={handleSubmit}
-                    >
+                    <Button variant="info" type="submit" onClick={handleSubmit}>
                       Submit
                     </Button>
-                    <Link to="/register" className="ml-2">
+                    <Link to="/register" className="ml-2 registerLink">
                       Register
                     </Link>
                   </Form.Group>
