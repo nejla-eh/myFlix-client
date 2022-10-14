@@ -6,7 +6,7 @@ import "./profile-view.scss";
 
 function FavoriteMovies({ favoriteMovieList, onRemoveFavorite }) {
   return (
-    <Card className="mb-3">
+    <Card className="mb-3 favMovies">
       <Card.Body>
         <Row>
           <Col>

@@ -6,3 +6,8 @@
     }
     color: $color;
 }
+.logIn {
+    &.card {
+        border-color: $borderColorCard;
+    }
+}

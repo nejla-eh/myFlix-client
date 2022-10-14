@@ -6,3 +6,9 @@
     }
     color: $color;
 }
+
+.register {
+    &.card {
+        border-color: $borderColorCard;
+    }
+}

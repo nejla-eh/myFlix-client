@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import { setMovies } from "../../actions/actions";
+import { setMovies, setUser } from "../../actions/actions";
 import MoviesList from "../movies-list/movies-list";
 
 import {
@@ -25,38 +25,19 @@ import { GenreView } from "../genre-view/genre-view";
 class MainView extends React.Component {
   constructor() {
     super();
-    this.state = {
-      user: null,
-    };
   }
 
   componentDidMount() {
     let accessToken = localStorage.getItem("token");
     if (accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem("user"),
-      });
+      console.log("called setUser");
+      this.props.setUser(localStorage.getItem("user"));
       this.getMovies(accessToken);
     }
   }
 
-  setSelectedMovie(newSelectedMovie) {
-    this.setState({
-      selectedMovie: newSelectedMovie,
-    });
-  }
-
-  setIsRegistering(status) {
-    this.setState({
-      isRegistering: status,
-    });
-  }
-
   onLoggedIn(authData) {
-    this.setState({
-      user: authData.user.Username,
-    });
-
+    this.props.setUser(authData.user.Username);
     localStorage.setItem("token", authData.token);
     localStorage.setItem("user", authData.user.Username);
     this.getMovies(authData.token);
@@ -71,7 +52,7 @@ class MainView extends React.Component {
         this.props.setMovies(response.data);
       })
       .catch(function (error) {
-        console.log(error);
+        console.error(error);
       });
   }
 
@@ -98,15 +79,12 @@ class MainView extends React.Component {
   onLoggedOut() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    this.setState({
-      user: null,
-      selectedMovie: null,
-    });
+    this.props.setUser(null);
   }
 
   render() {
-    let { movies } = this.props;
-    let { user } = this.state;
+    const { movies, user } = this.props;
+    console.log(user);
 
     return (
       <Router>
@@ -241,7 +219,7 @@ class MainView extends React.Component {
 }
 
 let mapStateToProps = (state) => {
-  return { movies: state.movies };
+  return { movies: state.movies, user: state.user };
 };
 
-export default connect(mapStateToProps, { setMovies })(MainView);
+export default connect(mapStateToProps, { setMovies, setUser })(MainView);

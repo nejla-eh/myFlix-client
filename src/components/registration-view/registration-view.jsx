@@ -76,7 +76,10 @@ export function RegistrationView({ onSucessfulRegistration }) {
       <Row>
         <Col>
           <CardGroup>
-            <Card style={{ marginTop: 100, marginBottom: 50 }}>
+            <Card
+              style={{ marginTop: 100, marginBottom: 50 }}
+              className="register"
+            >
               <Card.Body>
                 <Card.Title style={{ textAlign: "center", fontSize: "2rem" }}>
                   Register

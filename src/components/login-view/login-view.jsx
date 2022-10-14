@@ -64,7 +64,10 @@ export default function LoginView(props) {
       <Row>
         <Col>
           <CardGroup>
-            <Card style={{ marginTop: 100, marginBottom: 50 }}>
+            <Card
+              style={{ marginTop: 100, marginBottom: 50 }}
+              className="logIn"
+            >
               <Card.Body>
                 <Card.Title style={{ textAlign: "center", fontSize: "2rem" }}>
                   Login

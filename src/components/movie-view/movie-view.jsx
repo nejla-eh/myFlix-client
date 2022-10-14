@@ -63,7 +63,7 @@ export function MovieView({ movie, onBackClick }) {
         Back
       </Button>
       <div className="movie-poster pb-3">
-        <img width="150" src={movie.ImagePath} />
+        <img width="250" src={movie.ImagePath} />
       </div>
       <div className="movie-title">
         <span className="label">Title: </span>

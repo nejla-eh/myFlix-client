@@ -14,6 +14,10 @@
   color: #468ead;
 }
 
+.logIn.card {
+  border-color: #5f5763;
+}
+
 .registration-form {
   color: #b3b0b3;
 }
@@ -22,12 +26,24 @@
   color: #468ead;
 }
 
+.register.card {
+  border-color: #5f5763;
+}
+
 .profile-view {
   color: #b3b0b3;
 }
 
+.profile-view .userInfo, .profile-view .updateUser {
+  border-color: #5f5763;
+}
+
 .profile-view .backBtn {
   color: #468ead;
+}
+
+.favMovies.card {
+  border-color: #5f5763;
 }
 
 .director-view {
@@ -48,6 +64,15 @@
 
 .navBar a.navbar-brand, .navBar .navbar-nav a.nav-link {
   color: #b3b0b3;
+  outline: none;
+}
+
+.navBar a.navbar-brand:active, .navBar a.navbar-brand:focus, .navBar .navbar-nav a.nav-link:active, .navBar .navbar-nav a.nav-link:focus {
+  color: #468ead;
+}
+
+.navBar a.navbar-brand:hover, .navBar .navbar-nav a.nav-link:hover {
+  color: #eaa347;
 }
 
 .movieCard.card {

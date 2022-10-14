@@ -3,5 +3,12 @@
 .navBar {
     a.navbar-brand, .navbar-nav a.nav-link {
         color: $color;
+        outline: none;
+        &:active, &:focus {
+            color: $linkColor;
+        }
+        &:hover {
+            color: $hoverLinkColor;
+        }
     }
 }
